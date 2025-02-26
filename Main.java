@@ -1,37 +1,51 @@
+import java.util.*;
+
 /**
  * Clase Main para probar la funcionalidad de las clases Libro y Biblioteca.
  * 
- * @author (tu nombre)
- * @version (una versión o fecha)
+ * @author ASDB
+ * @version 26/02/2025
  */
 public class Main {
     public static void main(String[] args) {
         // Crear una biblioteca
         Biblioteca biblioteca = new Biblioteca();
 
+        // Crear objetos Autor
+        Autor autor1 = new Autor(1, "Fyodor Dostoevsky", "fyodor@dosto.com");
+        Autor autor2 = new Autor(2, "George Orwell", "george@orwell.com");
+        Autor autor3 = new Autor(3, "Antoine de Saint-Exupéry", "antoine@desaint.com");
+
         // Crear al menos 3 objetos Libro
-        Libro libro1 = new Libro("Crimen y castigo", "Fyodor Dosto", "978-0307474728", 1967);
-        Libro libro2 = new Libro("1984", "George Orwell", "978-0451524935", 1949);
-        Libro libro3 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 1943);
+        Libro libro1 = new Libro("Crimen y castigo", autor1, "978-0307474728", 1967);
+        Libro libro2 = new Libro("1984", autor2, "978-0451524935", 1949);
+        Libro libro3 = new Libro("El Principito", autor3, "978-0156012195", 1943);
 
         // Añadir los libros a la biblioteca
         biblioteca.agregarLibro(libro1);
         biblioteca.agregarLibro(libro2);
         biblioteca.agregarLibro(libro3);
 
+        // Prestar algunos libros
+        libro1.prestar();
+        libro3.prestar();
+
         // Mostrar la información de todos los libros en la biblioteca
         System.out.println("=== Libros en la biblioteca ===");
         System.out.println(biblioteca.mostrarLibros());
 
-        // Buscar un libro por título y mostrar su información
-        System.out.println("=== Buscar libro por título ===");
-        String tituloBusqueda = "1984"; // Cambia este valor para buscar otro libro
-        System.out.println("Buscando el libro: " + tituloBusqueda);
-        System.out.println(biblioteca.buscarLibroPorTitulo(tituloBusqueda));
+        // Obtener y mostrar libros prestados
+        System.out.println("=== Libros prestados ===");
+        ArrayList<Libro> librosPrestados = biblioteca.obtenerLibrosPrestados(true);
+        for (Libro libro : librosPrestados) {
+            System.out.println(libro.getInformacion());
+        }
 
-        // Buscar un libro que no existe
-        String tituloNoExistente = "Don Quijote";
-        System.out.println("Buscando el libro: " + tituloNoExistente);
-        System.out.println(biblioteca.buscarLibroPorTitulo(tituloNoExistente));
+        // Obtener y mostrar libros no prestados
+        System.out.println("=== Libros no prestados ===");
+        ArrayList<Libro> librosNoPrestados = biblioteca.obtenerLibrosPrestados(false);
+        for (Libro libro : librosNoPrestados) {
+            System.out.println(libro.getInformacion());
+        }
     }
 }
