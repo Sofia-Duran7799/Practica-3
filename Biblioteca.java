@@ -35,6 +35,23 @@ public class Biblioteca {
         return "Libro no encontrado: " + titulo; // Mensaje si no se encuentra el libro
     }
 
+    // Método para obtener la lista de libros prestados
+    public ArrayList<Libro> obtenerLibrosPrestados(boolean prestado) {
+        ArrayList<Libro> librosPrestados = new ArrayList<>();
+        ArrayList<Libro> librosNoPrestados = new ArrayList<>();
+        
+        for (Libro libro : libros) {
+            if (libro.estaPrestado()==prestado) { // Verifica si el libro está prestado 
+                librosPrestados.add(libro);
+            } else{ //
+                librosNoPrestados.add(libro);
+            }
+        }
+        return librosPrestados;
+    }
+
+
+
     // Método toString 
     @Override
     public String toString() {
